@@ -1,0 +1,22 @@
+
+name: Add issues to project
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add issue to project
+        uses: actions/add-to-project@v1
+        with:
+          project: 'Project Board'  # Replace with your project name
+          column: 'TODO'      # Replace with your column name
+          issue: ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
