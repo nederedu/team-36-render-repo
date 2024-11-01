@@ -1,0 +1,31 @@
+services:
+  - name: team-36-app
+    type: web
+    env: docker
+    plan: free  # adjust based on your needs
+    build:
+      dockerfilePath: Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          name: team-36-db
+          type: database_url
+    healthCheckPath: /
+    autoDeploy: true  # Enable auto-deploy on new commits
+    serviceDetails:
+      port: 3000
+
+  - name: team-36-db
+    type: postgresql
+    plan: free  # adjust based on your needs
+    databaseName: team36db
+    user: admin
+    password: password
+    envVars:
+      - key: POSTGRES_USER
+        value: admin
+      - key: POSTGRES_PASSWORD
+        value: password
+      - key: POSTGRES_DB
+        value: team36db
+    dataRetention: live  # Persistent storage
