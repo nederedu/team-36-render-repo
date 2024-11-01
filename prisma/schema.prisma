@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  email     String    @unique
+  password  String
+  first_name String?   @map("first_name")
+  last_name  String?   @map("last_name")
+  patients  users_x_patients[] // Many-to-many relationship with Patient
+
+  @@index([username], name: "idx_users_username")
+}
+
+model patients {
+  id          Int           @id @default(autoincrement())
+  mrn         String        @unique
+  first_name   String        @map("first_name")
+  middle_name  String?       @map("middle_name")
+  last_name    String        @map("last_name")
+  date_of_birth DateTime      @map("date_of_birth")
+  street      String?
+  house_number String?       @map("house_number")
+  city        String?
+  state       String?
+  zip         String?
+  country     String?
+  phone       String?       @unique
+  email       String?       @unique
+  observations observations[]
+  users       users_x_patients[]
+
+  @@index([mrn], name: "idx_patients_mrn")
+  @@index([email], name: "idx_patients_email")
+}
+
+model users_x_patients {
+  id       Int     @id @default(autoincrement())
+  user     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id   Int
+  patient  patients @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  patient_id Int
+  access   String
+
+  @@index([user_id], name: "idx_users_x_patients_user_id")
+  @@map("users_x_patients")
+}
+
+model observations {
+  id                 Int       @id @default(autoincrement())
+  patient            patients   @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  patient_id          Int
+  type               String
+  value              String
+  unit               String
+  observation_instant DateTime  @map("observation_instant")
+
+  @@index([patient_id], name: "idx_observations_patient_id")
+}

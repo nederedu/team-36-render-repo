@@ -1,0 +1,32 @@
+{
+    "name": "team-36-app",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "next dev",
+        "dev:init": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed && npm run dev",
+        "build": "next build",
+        "start": "next start",
+        "prisma:seed": "node prisma/seed.js",
+        "prisma:migrate": "npx prisma migrate dev --name init",
+        "prisma:generate": "npx prisma generate",
+        "prisma:studio": "npx prisma studio",
+        "pretest": "npm run prisma:generate",
+        "test": "jest",
+        "test:unit": "jest --testPathPattern='.*\\.unit\\.test\\.js$'",
+        "test:integration": "jest --testPathPattern='.*\\.integration\\.test\\.js$'"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.21.1",
+        "next": "^15.0.2",
+        "pg": "latest",
+        "react": "latest",
+        "react-dom": "latest"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "latest",
+        "@testing-library/react": "latest",
+        "@testing-library/user-event": "latest",
+        "jest": "latest",
+        "prisma": "^5.21.1"
+    }
+}
