@@ -43,7 +43,7 @@ async function main() {
             patient_id: 1,
             type: 'Blood Pressure',
             value: '120/80',
-            unit: 'bp',
+            unit: 'mmHg',
             observation_instant: new Date('1991-1-1'),
         },
     });

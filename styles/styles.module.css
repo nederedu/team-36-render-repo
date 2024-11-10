@@ -16,7 +16,7 @@
   }
   
   .page h1 {
-    font-size: 30px;
+    font-size: 22px;
   }
 
   .page h2 {
@@ -50,9 +50,16 @@
     bottom: 1%;
     left: 1%;
     padding-left: 5px;
+    padding-bottom: 15px;
     border-radius: 25px;
     border: 2px solid #7abec9;
     margin-top: 10px;
+  }
+
+  .readings_table, .readings_table th, .readings_table td {
+    text-align: left;
+    border: 1px solid black;
+    border-collapse: collapse;
   }
 
   .entry_form {

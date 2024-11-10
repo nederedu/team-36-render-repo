@@ -17,10 +17,10 @@ class Observation {
    * @throws Throws error if query fails
    */
   static async create({ id, patient_id, type, value, unit, observation_instant }) {
-    if (!id || !patient_id || !type || !value || !unit || !observation_instant) {
+    if (!patient_id || !type || !value || !unit || !observation_instant) {
       throw Error("Patient, type, value, unit, and observation instant are required");
     }
-    
+
     return new this({ id, patient_id, type, value, unit, observation_instant });
   }
 
@@ -41,6 +41,17 @@ class Observation {
     }
   }
 
+  static async getObsForPat(patient_id) {
+    try {
+      const readings = await db.observations.findMany({
+        where: { patient_id: patient_id },
+      });
+      return readings;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   /**
    * Stores an observation object in the database
    * @param {string} type type
@@ -49,24 +60,15 @@ class Observation {
    */
   async store() {
     try {
-      const obsData = await db.observations.upsert({
-        where: { id: this.id },
-        update: {
+      const obsData = await db.observations.create({
+        data: {
           patient_id: this.patient_id,
           type: this.type,
           value: this.value,
           unit: this.unit,
           observation_instant: this.observation_instant,
-        },
-        create: {
-          id: this.id,
-          patient_id: this.patient_id,
-          type: this.type,
-          value: this.value,
-          unit: this.unit,
-          observation_instant: this.observation_instant,
-        },
-      });
+        }
+      }); 
       Object.assign(this, obsData);
       return this;
     } catch (error) {
