@@ -62,7 +62,7 @@ describe('Patient Class', () => {
         });
 
         test('should return a patient when a valid MRN is provided', async () => {
-            const patient = await Patient.getByMRN('1234');
+            const patient = await Patient.getByMRN('T36-AAAAAA');
       
             expect(patient).toBeDefined();
             expect(patient.id).toBe(testPatData.id);

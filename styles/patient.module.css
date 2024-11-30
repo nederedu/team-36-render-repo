@@ -1,0 +1,50 @@
+.page {
+    margin-top: 70px; /* Adjust for the header if necessary */
+    min-height: 100vh; /* Ensure the background fills the full viewport height */
+    padding: 20px; /* Add some space around the main content */
+    box-sizing: border-box; /* Ensure padding is included in dimensions */
+}
+
+.page h1 {
+    font-size: 22px;
+}
+  
+.page h2 {
+    font-size: 16px;
+}
+  
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 0 0 15%;
+    height: calc(100% - 70px);
+    width: 85%;
+}
+
+.data_entry {
+    flex: 1;
+    background: white;
+    border-radius: 25px;
+    border: 2px solid #7abec9;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.graph {
+    flex: 1;
+    background: white;
+    border-radius: 25px;
+    border: 2px solid black;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-bottom: 15px;
+}
+
+.readings_table, .readings_table th, .readings_table td {
+    text-align: left;
+    background: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+}

@@ -1,0 +1,46 @@
+.data_entry {
+    flex: 1;
+    background: white;
+    border-radius: 25px;
+    border: 2px solid gray;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.entry_form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.entry_form label {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+}
+
+.entry_form input[type="text"],
+.entry_form input[type="email"],
+.entry_form input[type="date"],
+.entry_form input[type="password"],
+.entry_form input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.entry_form input[type="submit"] {
+    background-color: #005f7a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.entry_form input[type="submit"]:hover {
+    background-color: #004d63;
+}

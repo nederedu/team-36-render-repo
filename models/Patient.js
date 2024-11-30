@@ -1,4 +1,6 @@
 const db = require('../lib/db');
+const crypto = require('crypto');
+const { runInThisContext } = require('vm');
 
 class Patient {
     constructor({id, mrn, first_name, middle_name, last_name, date_of_birth, street, house_number, city, state, zip, country, phone, email}) {
@@ -16,6 +18,33 @@ class Patient {
         this.country = country;
         this.phone = phone;
         this.email = email;
+    }
+
+    toPlainObject() {
+
+        const dob = new Date(this.date_of_birth);
+        const isoDOB = dob.toISOString().split('T')[0];
+        const dobYear = isoDOB.split('-')[0];
+        const dobMonth = isoDOB.split('-')[1];
+        const dobDay = isoDOB.split('-')[2];
+        const formattedDOB = dobMonth + '/' + dobDay + '/' + dobYear;
+
+        return {
+            id: this.id,
+            mrn: this.mrn,
+            first_name: this.first_name,
+            middle_name: this.middle_name,
+            last_name: this.last_name,
+            date_of_birth: formattedDOB,
+            street: this.street,
+            house_number: this.house_number,
+            city: this.city,
+            state: this.state,
+            zip: this.zip,
+            country: this.country,
+            phone: this.phone,
+            email: this.email,
+        };
     }
 
     /**
@@ -38,11 +67,18 @@ class Patient {
      * @throws Throws error if query fails
      */
     static async create({id, mrn, first_name, middle_name, last_name, date_of_birth, street, house_number, city, state, zip, country, phone, email}) {
-        if (!first_name || !last_name || !date_of_birth || !mrn) {
-          throw Error("First name, last name, date of birth, and MRN are required");
+        if (!first_name || !last_name || !date_of_birth) {
+          throw Error("First name, last name, and date of birth are required");
         }
+
+        // Create unique MRN
+        const hash = crypto.randomBytes(3).toString('hex').toUpperCase();
+        const newMrn = 'T36-' + hash;
+
+        // Convert date format
+        const dateOfBirth = new Date(date_of_birth);
     
-        return new this({id, mrn, first_name, middle_name, last_name, date_of_birth, street, house_number, city, state, zip, country, phone, email });
+        return new this({id, mrn: newMrn, first_name, middle_name, last_name, date_of_birth: dateOfBirth, street, house_number, city, state, zip, country, phone, email });
     }
 
     /**
@@ -55,7 +91,7 @@ class Patient {
         try {
             const patientData = await db.patients.findUnique({
                 where: { id: patientId }
-            })
+            });
             return patientData ? new Patient(patientData) : undefined;
         }
         catch (error) {
@@ -73,7 +109,7 @@ class Patient {
         try {
             const patientData = await db.patients.findUnique({
                 where: { mrn: mrn }
-            })
+            });
             return patientData ? new Patient(patientData) : undefined;
         }
         catch (error) {
@@ -81,13 +117,33 @@ class Patient {
         }
     }
 
+    /**
+     * Gets patient by user_id
+     * @param {number} userId 
+     * @returns {Promise<object>} User object or undefined
+     * @throws Throws error if query fails 
+     */
+     static async getByUserId(userId) {
+        try {
+            const u_x_p = await db.users_x_patients.findFirst({
+                where: { user_id: userId }
+            });
+            const patientId = u_x_p.patient_id;
+            const patientData = await db.patients.findUnique({
+                where: { id: patientId }
+            });
+            return patientData ? new Patient(patientData) : undefined;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 
     async store() { 
         try {
             const patientData = await db.patients.upsert({
-                where: {id: this.id },
+                where: { mrn: this.mrn },
                 update: {
-                    mrn: this.mrn,
                     first_name: this.first_name,
                     middle_name: this.middle_name,
                     last_name: this.last_name,
@@ -102,7 +158,6 @@ class Patient {
                     email: this.email,
                 },
                 create: {
-                    id: this.id,
                     mrn: this.mrn,
                     first_name: this.first_name,
                     middle_name: this.middle_name,
@@ -119,6 +174,34 @@ class Patient {
                 }
             });
             Object.assign(this, patientData);
+            return this;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    /**
+     * Maps to user_id
+     * @param {number} userId 
+     * @returns {Promise<object>} User object or undefined
+     * @throws Throws error if query fails 
+     */
+     async mapToUser(userId) {
+        try {
+            const u_x_p = await db.users_x_patients.upsert({
+                where: { id: 999999999 },
+                update: {
+                    user_id: userId,
+                    patient_id: this.id,
+                    access: 'full',
+                },
+                create: {
+                    user_id: userId,
+                    patient_id: this.id,
+                    access: 'full',
+                }
+            });
             return this;
         }
         catch (error) {

@@ -1,0 +1,13 @@
+.sidebar {
+  height: calc(98% - 70px);
+  width: 13%;
+  position: fixed;
+  top: 70px;
+  bottom: 1%;
+  left: 1%;
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid gray;
+  border-radius: 25px;
+  padding-left: 5px;
+}

@@ -1,4 +1,6 @@
 
+import '../styles/globals.css';
+
 export const metadata = {
   title: "Team 36 - Hypertension Monitor",
   description: "Supports pregnant patients monitoring blood pressure",

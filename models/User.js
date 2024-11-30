@@ -2,7 +2,7 @@ const db = require('../lib/db');
 
 class User {
   constructor({ id, username, email, password, first_name, last_name }) {
-    this.id,
+    this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;
@@ -34,8 +34,8 @@ class User {
     const userData = await db.users.upsert({
       where: { email: this.email },
       update: {
-        username: this.username,
         password: this.password,
+        email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
       },

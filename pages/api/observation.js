@@ -1,4 +1,4 @@
-import Observation, { create, store } from "../../models/Observation";
+import { createObservation } from "../../services/ObservationService.js";
 
 export default async function storeReading(req, res){
 
@@ -16,10 +16,7 @@ export default async function storeReading(req, res){
                 observation_instant: observation_instant,
               };
 
-            let newObs = new Observation(obsData);
-            // const newObs = Observation.create(obsData);
-
-            const storedObs = await newObs.store();
+            const storedObs = await createObservation(obsData);
             
             if ('id' in storedObs) {
                 return res.status(200).json({ message: 'New reading stored' });

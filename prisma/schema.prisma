@@ -32,8 +32,8 @@ model patients {
   state       String?
   zip         String?
   country     String?
-  phone       String?       @unique
-  email       String?       @unique
+  phone       String?
+  email       String?
   observations observations[]
   users       users_x_patients[]
 

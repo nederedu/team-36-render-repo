@@ -10,13 +10,15 @@ services:
       - '9229:9229'
     volumes:
       - .:/app
+      - /app/node_modules
     environment:
       DATABASE_URL: "postgresql://admin:password@db:5432/team36db"
+      JWT_SECRET: "VGhpcyBpcyBhIHNlY3VyZSBzYW1wbGUgd2l0aCBzcGVjaWFsIGNoYXJhY3RlcnMhIQ=="
     depends_on:
       db:
-        condition: service_healthy  # app waits for db to be healthy
-    restart: no                     # No restart if app fails
-    healthcheck:                    # Healthcheck for the app container
+        condition: service_healthy
+    restart: no
+    healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
       interval: 30s
       timeout: 10s
@@ -34,8 +36,8 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: no                     # No restart if database fails
-    healthcheck:                    # Healthcheck for the database
+    restart: no
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d team36db"]
       interval: 30s
       timeout: 10s
