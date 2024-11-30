@@ -1,0 +1,118 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 60px;
+    background: linear-gradient(to bottom right, #7abec9, #014254); /* Match login gradient */
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 0; /* Keep corners squared for a clean edge */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for a floating effect */
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px; /* Slightly larger for emphasis */
+    color: white;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Add subtle shadow for better contrast */
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+}
+
+/* Button styles */
+.button {
+    margin-right: 10px;
+    padding: 10px 18px; /* Increase padding for a more prominent button */
+    background-color: white;
+    color: #005f7a; /* Darker shade to match the gradient */
+    border: none;
+    border-radius: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold; /* Match the bold style from the login page */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Profile button styles */
+.profile {
+    position: relative;
+}
+
+.profileButton {
+    padding: 10px 18px; /* Increase padding for consistency with other buttons */
+    background-color: white;
+    color: #005f7a;
+    border: none;
+    border-radius: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold; /* Match login page buttons */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s;
+}
+
+.profileButton:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #7abec9;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.dropdown button {
+    width: 100%; /* Make buttons stretch across the dropdown */
+    text-align: left; /* Align text to the left inside the button */
+    padding: 10px; /* Add padding to the buttons */
+}
+
+.dropdownItem {
+    display: block;
+    padding: 10px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #005f7a; /* Match the dark gradient color for consistency */
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0;
+}
+
+/* Add shadow and gradient consistency */
+.header:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}

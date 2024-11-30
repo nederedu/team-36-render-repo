@@ -45,7 +45,6 @@ describe('Observation Class', () => {
     
     test('should store new data for an existing observation', async () => {
       const newObsData = {
-        id: 1,
         patient_id: 1,
         type: 'Blood Pressure',
         value: '130/90',
@@ -71,20 +70,20 @@ describe('Observation Class', () => {
 
     beforeAll(async () => {
       testObservation = new Observation({
-        id: 1,
         patient_id: 1,
         type: 'Blood Pressure',
-        value: '130/90',
-        unit: 'bp',
+        value: '120/80',
+        unit: 'mmHg',
         observation_instant: new Date('1991-01-01'),
       });
+
     });
 
     test('should return an observation when a valid ID is provided', async () => {
+
       const observation = await Observation.getById(1);
 
       expect(observation).toBeDefined();
-      expect(observation.id).toBe(testObservation.id);
       expect(observation.patient_id).toBe(testObservation.patient_id);
       expect(observation.type).toBe(testObservation.type);
       expect(observation.value).toBe(testObservation.value);
@@ -93,7 +92,7 @@ describe('Observation Class', () => {
     });
     
     test('should return undefined if no observation is found', async () => {
-      const observation = await Observation.getById(999);
+      const observation = await Observation.getById(99999);
       expect(observation).toBeUndefined();
     });
   });

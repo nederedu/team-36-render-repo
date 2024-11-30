@@ -1,4 +1,4 @@
-.PHONY: start stop logs status rebuild clean
+.PHONY: start stop logs status rebuild rebuild-no-cache clean db-only test unittest inttest migrate generate studio
 
 start:
 	@echo "Starting the containers..."
@@ -19,6 +19,10 @@ status:
 rebuild:
 	@echo "Rebuilding and restarting the containers..."
 	docker-compose down && docker-compose up --build -d
+
+rebuild-no-cache:
+	@echo "Rebuilding and restarting the containers..."
+	docker-compose down && docker-compose build --no-cache && docker-compose up -d
 
 db-only:
 	@echo "Rebuildilng and restarting only the database container..."

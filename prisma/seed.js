@@ -6,7 +6,6 @@ async function main() {
         where: { id: 1 },
         update: {},
         create: {
-            id: 1,
             username: 'admin',
             email: 'admin@example.org',
             password: 'password',
@@ -19,8 +18,7 @@ async function main() {
         where: { id: 1 },
         update: {},
         create: {
-            id: 1,
-            mrn: '1',
+            mrn: 'T36-AAAAAA',
             first_name: 'ZZZ_Test',
             last_name: 'ZZZ_Patient',
             date_of_birth: new Date('1991-1-1'),
@@ -35,11 +33,20 @@ async function main() {
         },
     });
 
+    await db.users_x_patients.upsert({
+        where: { id: 1 },
+        update: {},
+        create: {
+            user_id: 1,
+            patient_id: 1,
+            access: 'full',
+        },
+    });
+
     await db.observations.upsert({
         where: { id: 1 },
         update: {},
         create: {
-            id: 1,
             patient_id: 1,
             type: 'Blood Pressure',
             value: '120/80',

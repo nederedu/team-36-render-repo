@@ -1,36 +1,43 @@
-const Patient = require('../../models/Patient');
-import styles from "../../styles/styles.module.css";
-import BPform from "../components/bpForm";
-import ReadingsTable from "../components/readingsTable";
+import { authenticateUser } from '../../lib/validateAuth';
+import Patient from '../../models/Patient';
+import Observation from '../../models/Observation';
+import styles from '../../styles/patient.module.css';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import BPform from '../components/bpForm';
+import ReadingsTable from '../components/readingsTable';
+import { redirect } from 'next/navigation';
+import { format } from 'date-fns';
 
-export default async function Home() {
+export default async function PatientPage() {
+    const { user } = await authenticateUser();
 
-    const current_pat_id = 1;
+    if (!user) {
+        redirect('/login');
+    }
 
-    const current_patient = await Patient.getById(current_pat_id);
-    const dob = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    }).format(current_patient.date_of_birth)
+    const current_patient = await Patient.getByUserId(user.id);
+    const plain_patient = current_patient.toPlainObject();
+
+    const raw_readings = await Observation.getObsForPat(current_patient.id);
+    const readings = raw_readings.map((reading) => ({
+            ...reading,
+            formattedDate: format(new Date(reading.observation_instant), 'MM/dd/yyyy, hh:mm:ss a'),
+        }))
+        .sort((a, b) => new Date(b.observation_instant) - new Date(a.observation_instant));
 
     return (
         <div className={styles.page}>
+            {/* Header */}
+            <Header />
 
-            <div className={styles.sidebar}>
-                <h1>{current_patient.first_name} {current_patient.last_name}</h1> 
-                <h2>MRN: {current_patient.mrn}</h2>
-                <h2>DOB: {dob}</h2>
-            </div>
+            {/* Sidebar */}
+            <Sidebar patient={plain_patient} />
+
+            {/* Main Content */}
             <main className={styles.main}>
-                <div className={styles.data_entry}>
-                    <h1>Enter a New Reading</h1>
-                    <BPform />                    
-                </div>
-                <div className={styles.graph}>
-                    <h1>Historical Readings</h1>
-                    <ReadingsTable />
-                </div>
+                <BPform patient_id={current_patient.id} />
+                <ReadingsTable readings={readings} />
             </main>
         </div>
     );
