@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import styles from '../../styles/accountSettings.module.css';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Header from '../components/header';
+import Sidebar from '../components/sidebar';
 
 export default function AccountSettingsClient({ user, patient }) {
     const dob = new Date(patient.date_of_birth + 'Z');
