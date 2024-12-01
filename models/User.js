@@ -10,6 +10,17 @@ class User {
     this.last_name = last_name;
   }
 
+  toPlainObject() {
+    return {
+      id: this.id,
+      username: this.username,
+      email: this.email,
+      password: this.password,
+      first_name: this.first_name,
+      last_name: this.last_name,
+    };
+  }
+
   /**
    * Creates a new user object
    * @param {string} username username
@@ -34,10 +45,11 @@ class User {
     const userData = await db.users.upsert({
       where: { email: this.email },
       update: {
-        password: this.password,
+        username: this.username,
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
+        password: this.password,
       },
       create: {
         username: this.username,

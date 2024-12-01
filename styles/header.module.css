@@ -5,24 +5,24 @@
     right: 0;
     width: auto;
     height: 60px;
-    background: linear-gradient(to bottom right, #7abec9, #014254); /* Match login gradient */
+    background: linear-gradient(to bottom right, #7abec9, #014254);
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 0; /* Keep corners squared for a clean edge */
+    border-radius: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
     z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for a floating effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     margin: 0;
 }
 
 .header h1 {
     margin: 0;
-    font-size: 24px; /* Slightly larger for emphasis */
+    font-size: 24px;
     color: white;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Add subtle shadow for better contrast */
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .headerRight {
@@ -30,40 +30,38 @@
     align-items: center;
 }
 
-/* Button styles */
 .button {
     margin-right: 10px;
-    padding: 10px 18px; /* Increase padding for a more prominent button */
-    background-color: white;
-    color: #005f7a; /* Darker shade to match the gradient */
-    border: none;
-    border-radius: 15px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: bold; /* Match the bold style from the login page */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.2s;
-}
-
-.button:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-/* Profile button styles */
-.profile {
-    position: relative;
-}
-
-.profileButton {
-    padding: 10px 18px; /* Increase padding for consistency with other buttons */
+    padding: 10px 18px;
     background-color: white;
     color: #005f7a;
     border: none;
     border-radius: 15px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    font-weight: bold; /* Match login page buttons */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.profile {
+    position: relative;
+}
+
+.profileButton {
+    padding: 10px 18px;
+    background-color: white;
+    color: #005f7a;
+    border: none;
+    border-radius: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, transform 0.2s;
 }
@@ -90,9 +88,9 @@
 }
 
 .dropdown button {
-    width: 100%; /* Make buttons stretch across the dropdown */
-    text-align: left; /* Align text to the left inside the button */
-    padding: 10px; /* Add padding to the buttons */
+    width: 100%;
+    text-align: left;
+    padding: 10px;
 }
 
 .dropdownItem {
@@ -100,7 +98,7 @@
     padding: 10px 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    color: #005f7a; /* Match the dark gradient color for consistency */
+    color: #005f7a;
     text-align: left;
     background: none;
     border: none;
@@ -112,7 +110,6 @@
     background-color: #f0f0f0;
 }
 
-/* Add shadow and gradient consistency */
 .header:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }

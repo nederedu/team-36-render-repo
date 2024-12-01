@@ -1,5 +1,5 @@
-const User = require('../../models/User'); // Adjust the path to your User model
-const { verifyPassword } = require('../../lib/auth'); // Use the updated auth logic for plaintext passwords
+const User = require('../../models/User');
+const { verifyPassword } = require('../../lib/auth');
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -7,19 +7,18 @@ export default async function handler(req, res) {
     }
 
     const {
+        username,
+        email,
         firstName,
         lastName,
         dateOfBirth,
-        email,
         currentPassword,
         newPassword,
     } = req.body;
 
-    const userId = 1; // Replace with actual user ID from session or token
-
     try {
         // Fetch the user by ID
-        const user = await User.getById(userId);
+        const user = await User.getByEmail(email);
 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
@@ -32,6 +31,12 @@ export default async function handler(req, res) {
         }
 
         // Update user fields
+        if (username) {
+            await user.setUsername(username);
+        }
+        if (email) {
+            await user.setEmail(email);
+        }
         if (firstName) {
             await user.setFirstName(firstName);
         }
@@ -40,9 +45,6 @@ export default async function handler(req, res) {
         }
         if (dateOfBirth) {
             user.date_of_birth = new Date(dateOfBirth); // Directly set the field if no setter is available
-        }
-        if (email) {
-            await user.setEmail(email);
         }
         if (newPassword) {
             await user.setPassword(newPassword); // Store plain-text password for now

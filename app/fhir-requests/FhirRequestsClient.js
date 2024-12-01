@@ -10,7 +10,6 @@ export default function CollapsibleJson({ jsonObject }) {
     setIsExpanded((prev) => !prev);
   };
 
-  // Extract the title using resourceType and id
   const resourceType = jsonObject.resourceType || 'Unknown Resource';
   const id = jsonObject.id || 'Unknown ID';
   const title = `${resourceType} ${id}`;

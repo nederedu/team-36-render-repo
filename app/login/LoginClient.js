@@ -52,6 +52,7 @@ export default function LoginClient() {
         router.push('/patient'); // Redirect to patient page after login
       } else {
         setSuccess('Account created successfully! You can now log in.');
+        setFormData({ ...formData, email: '', password: '' });
         setIsLogin(true); // Switch back to login after successful signup
       }
     } else {

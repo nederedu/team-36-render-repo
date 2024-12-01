@@ -4,19 +4,20 @@ import { authenticateUser } from '../../lib/validateAuth';
 import CollapsibleJson from './FhirRequestsClient.js';
 import styles from '../../styles/fhirDisplay.module.css';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
 import { redirect } from 'next/navigation';
+const Patient = require('../../models/Patient');
 
-async function fetchFhirData() {
+async function fetchFhirData(patientId) {
   const filepath = path.resolve('./data/saved_observations.ndjson');
   try {
     const fhirData = await fs.readFile(filepath, 'utf8');
     return fhirData
-      .split('\n')
-      .filter((line) => line.trim() !== '')
-      .map((line) => JSON.parse(line));
+      .split('\n') // Split file into lines
+      .filter((line) => line.trim() !== '') // Remove empty lines
+      .map((line) => JSON.parse(line)) // Parse JSON objects
+      .filter((entry) => entry.subject && entry.subject.reference === `Patient/${patientId}`); // Filter by patient ID
   } catch (err) {
+    console.error('Error reading FHIR data:', err);
     return [];
   }
 }
@@ -28,7 +29,10 @@ export default async function FhirDisplay() {
     redirect('/login'); // Redirect unauthorized users to login page
   }
 
-  const fhirObjects = await fetchFhirData();
+  const patient = await Patient.getByUserId(user.id);
+  const patientId = patient.id;
+
+  const fhirObjects = await fetchFhirData(patientId);
 
   return (
     <div className={styles.page}>

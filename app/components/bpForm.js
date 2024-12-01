@@ -10,7 +10,7 @@ export default function BPFormClient({ patient_id }) {
   const [error, setError] = useState('');
 
   async function storeValue(event) {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
 
     const response = await fetch('/api/observation', {
       method: 'POST',
@@ -21,12 +21,10 @@ export default function BPFormClient({ patient_id }) {
     });
 
     if (response.ok) {
-      // Reload the page or handle success logic
-      console.log("WERE OK!");
       window.location.reload();
     } else {
       const data = await response.json();
-      setError(data.message); // Display the error message
+      setError(data.message);
     }
   }
 
