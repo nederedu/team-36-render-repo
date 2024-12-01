@@ -1,8 +1,8 @@
 .page {
-    margin-top: 70px; /* Adjust for the header if necessary */
-    min-height: 100vh; /* Ensure the background fills the full viewport height */
-    padding: 20px; /* Add some space around the main content */
-    box-sizing: border-box; /* Ensure padding is included in dimensions */
+    margin-top: 70px;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .page h1 {

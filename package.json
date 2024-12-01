@@ -17,23 +17,24 @@
     },
     "dependencies": {
         "@prisma/client": "^5.21.1",
-        "cookie": "latest",
-        "crypto": "latest",
-        "date-fns": "latest",
         "next": "^15.0.2",
         "pg": "latest",
         "react": "latest",
-        "react-dom": "latest"
+        "react-dom": "latest",
+        "cookie": "latest",
+        "jsonwebtoken": "latest",
+        "crypto": "latest",
+        "date-fns": "latest"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "latest",
         "@testing-library/react": "latest",
         "@testing-library/user-event": "latest",
-        "cookie": "latest",
-        "crypto": "latest",
-        "date-fns": "latest",
         "jest": "latest",
-        "jsonwebtoken": "^9.0.2",
-        "prisma": "^5.21.1"
+        "prisma": "^5.21.1",
+        "cookie": "latest",
+        "jsonwebtoken": "latest",
+        "crypto": "latest",
+        "date-fns": "latest"
     }
 }

@@ -6,7 +6,7 @@ export default async function LoginPage() {
   const { user } = await authenticateUser();
 
   if (user) {
-    redirect('/patient'); // Redirect logged-in users to /patient
+    redirect('/patient');
   }
 
   return <LoginClient />;

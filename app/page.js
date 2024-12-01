@@ -5,8 +5,8 @@ export default async function Home() {
   const { user } = await authenticateUser();
 
   if (user) {
-    redirect('/patient'); // Redirect logged-in users to the patient dashboard
+    redirect('/patient');
   } else {
-    redirect('/login'); // Redirect logged-out users to the login page
+    redirect('/login');
   }
 }

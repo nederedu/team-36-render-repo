@@ -5,15 +5,16 @@ import styles from '../../styles/accountSettings.module.css';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
-export default function AccountSettingsClient({ patient }) {
-    const dob = new Date(patient.date_of_birth);
+export default function AccountSettingsClient({ user, patient }) {
+    const dob = new Date(patient.date_of_birth + 'Z');
     const formattedDOB = dob.toISOString().split('T')[0];
 
     const [formData, setFormData] = useState({
-        firstName: patient.first_name || '',
-        lastName: patient.last_name || '',
+        username: user.username || '',
+        email: user.email || '',
+        firstName: user.first_name || '',
+        lastName: user.last_name || '',
         dateOfBirth: formattedDOB || '',
-        email: patient.email || '', // Assuming patient email is relevant
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
@@ -67,6 +68,24 @@ export default function AccountSettingsClient({ patient }) {
                 <div className={styles.account_settings}>
                     <h1>Account Settings</h1>
                     <form className={styles.entry_form} onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                        <input
+                            type="username"
+                            id="username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                        />
+                        
+                        <label htmlFor="email">Email Address:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+
                         <label htmlFor="firstName">First Name:</label>
                         <input
                             type="text"
@@ -91,15 +110,6 @@ export default function AccountSettingsClient({ patient }) {
                             id="dateOfBirth"
                             name="dateOfBirth"
                             value={formData.dateOfBirth}
-                            onChange={handleChange}
-                        />
-
-                        <label htmlFor="email">Email Address:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
                             onChange={handleChange}
                         />
 

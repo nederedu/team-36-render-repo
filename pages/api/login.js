@@ -27,11 +27,9 @@ export default async function handler(req, res) {
 
         // Generate a JWT with user data
         const token = generateToken({ id: user.id, email: user.email });
-        console.log('Generated Token:', token);
 
         // Set the token as a cookie
         setCookie(res, token);
-        console.log('Token set as cookie successfully.');
 
         return res.status(200).json({ message: 'Login successful.' });
     } catch (error) {
