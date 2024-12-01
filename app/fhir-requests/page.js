@@ -9,7 +9,9 @@ const Patient = require('../../models/Patient');
 
 async function fetchFhirData(patientId) {
   const filepath = path.resolve('./data/saved_observations.ndjson');
+  
   try {
+    await fs.access(filepath);
     const fhirData = await fs.readFile(filepath, 'utf8');
     return fhirData
       .split('\n') // Split file into lines
@@ -17,7 +19,11 @@ async function fetchFhirData(patientId) {
       .map((line) => JSON.parse(line)) // Parse JSON objects
       .filter((entry) => entry.subject && entry.subject.reference === `Patient/${patientId}`); // Filter by patient ID
   } catch (err) {
-    console.error('Error reading FHIR data:', err);
+    if (err.code === 'ENOENT') {
+      console.warn(`File not found: ${filepath}. Returning an empty array.`);
+    } else {
+      console.error('Error reading FHIR data:', err);
+    }
     return [];
   }
 }
